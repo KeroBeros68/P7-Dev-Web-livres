@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const bookRoutes = require('./routes/book');
 const userRoutes = require('./routes/user');
+const path = require('path');
 
 mongoose.connect('mongodb+srv://kevinbertrand68pro:q0bBhHYX1GC5TR8W@cluster0.elop7.mongodb.net/Mon_vieux_grimoire?retryWrites=true&w=majority')
      .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -21,5 +22,6 @@ app.use((req, res, next) => {
 
 app.use('/api/books', bookRoutes);
 app.use('/api/auth', userRoutes);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
