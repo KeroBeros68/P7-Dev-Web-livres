@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const bookCtrl = require('../controllers/book');
+const auth = require('../middleware/auth');
 
-router.post('/', bookCtrl.createBook);
+router.post('/', auth, bookCtrl.createBook);
 
 router.post('/:id/rating', (req, res, next) => {
 });
