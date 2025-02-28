@@ -9,7 +9,7 @@ const optimizeImg = async (req, res, next) => {
     const newFilePath = `images/${newName}`;
     try {
         await sharp(filePath)
-            .resize(400)
+            .resize(400, 500, { fit: 'contain', background: { r: 255, g: 255, b: 255 } })
             .toFormat('webp')
             .webp({ quality: 80 })
             .toFile(newFilePath);
@@ -19,6 +19,9 @@ const optimizeImg = async (req, res, next) => {
         req.file.filename = newName;
         next(); 
     } catch (error) {
+        if (filePath) {
+            fs.unlinkSync(filePath);
+        }
         console.error('Erreur lors de l’optimisation de l’image:', error);
         return res.status(500).json({ error: 'Erreur lors du traitement de l’image' });
     }
