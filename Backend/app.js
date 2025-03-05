@@ -1,11 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
+const dbUrl = process.env.DB_URL;
 const bookRoutes = require('./routes/book');
 const userRoutes = require('./routes/user');
 const path = require('path');
 
-mongoose.connect('mongodb+srv://kevinbertrand68pro:q0bBhHYX1GC5TR8W@cluster0.elop7.mongodb.net/Mon_vieux_grimoire?retryWrites=true&w=majority')
+mongoose.connect(`${dbUrl}`)
      .then(() => console.log('Connexion à MongoDB réussie !'))
      .catch(() => console.log('Connexion à MongoDB échouée !'));
 
