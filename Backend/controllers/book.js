@@ -1,3 +1,4 @@
+const logger = require('../logger');
 const Book = require('../models/Book');
 const fs = require('fs');
 
@@ -18,16 +19,18 @@ exports.createBook = (req, res, next) => {
           res.status(201).json({
             message: 'Book saved successfully!'
           });
+          logger.info(`Book crée par ${req.auth.userId}`)
         }
       ).catch(
         (error) => {
             if (req.file.path) {
                 fs.unlinkSync(req.file.path);
-                console.log('fichier détruit!');
+                logger.info('fichier temporaire détruit!');
             };
           res.status(400).json({
             error: error
           });
+          logger.error(error);
         }
       );
 };

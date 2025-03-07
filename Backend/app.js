@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 require('dotenv').config();
 
 const dbUrl = process.env.DB_URL;
@@ -13,6 +14,7 @@ mongoose.connect(`${dbUrl}`)
 
 const app = express();
 
+app.use(morgan('dev'));
 app.use(express.json());
 
 app.use((req, res, next) => {
