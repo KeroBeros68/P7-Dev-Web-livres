@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const logger = require('./logger');
 require('dotenv').config();
 
 const dbUrl = process.env.DB_URL;
@@ -9,12 +10,17 @@ const userRoutes = require('./routes/user');
 const path = require('path');
 
 mongoose.connect(`${dbUrl}`)
-     .then(() => console.log('Connexion à MongoDB réussie !'))
-     .catch(() => console.log('Connexion à MongoDB échouée !'));
+     .then(() => logger.info('Connexion à MongoDB réussie !'))
+     .catch(() => logger.error('Connexion à MongoDB échouée !'));
 
 const app = express();
 
-app.use(morgan('dev'));
+const morganStream = {
+  write: (message) => logger.info(message.trim())
+};
+
+app.use(morgan('combined', { stream: morganStream }));
+
 app.use(express.json());
 
 app.use((req, res, next) => {

@@ -22,7 +22,7 @@ const optimizeImg = async (req, res, next) => {
         if (filePath) {
             fs.unlinkSync(filePath);
         }
-        console.error('Erreur lors de l’optimisation de l’image:', error);
+        logger.error('Sharp error:' + error);
         return res.status(500).json({ error: 'Erreur lors du traitement de l’image' });
     }
 };
