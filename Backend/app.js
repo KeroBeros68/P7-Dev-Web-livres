@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-const logger = require('./logger');
-require('dotenv').config();
+const logger = require('./config/logger');
+require('dotenv').config({ path: './config/.env' });
 
 const dbUrl = process.env.DB_URL;
 const bookRoutes = require('./routes/book');

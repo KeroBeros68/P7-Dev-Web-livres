@@ -1,4 +1,4 @@
-const logger = require('../logger');
+const logger = require('../config/logger');
 const Book = require('../models/Book');
 const fs = require('fs');
 
@@ -121,7 +121,7 @@ exports.deleteOneBook = (req, res, next) => {
                     .then(() => {
                         const filename = book.imageUrl.split('/images/')[1];
                         fs.unlink(`images/${filename}`, (err) => { if (err) throw err});
-                        logger.error(`Book ${book._id} deleted by ${req.auth.userId}`);
+                        logger.info(`Book ${book._id} deleted by ${req.auth.userId}`);
                         res.status(200).json({ message: 'Objet supprimé !'});
                     })
                     .catch(error => {

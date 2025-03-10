@@ -1,5 +1,6 @@
 const sharp = require('sharp');
 const fs = require('fs');
+const logger = require('../config/logger');
 
 const optimizeImg = async (req, res, next) => {
     if (!req.file) return next();

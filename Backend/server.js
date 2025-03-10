@@ -1,6 +1,6 @@
 const http = require('http');
 const app = require('./app');
-const logger = require('./logger');
+const logger = require('./config/logger');
 
 const normalizePort = val => {
   const port = parseInt(val, 10);

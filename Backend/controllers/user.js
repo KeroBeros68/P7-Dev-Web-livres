@@ -1,9 +1,9 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const logger = require('../logger');
+const logger = require('../config/logger');
 const cryptoJS = require('crypto-js');
-require('dotenv').config();
+require('dotenv').config({ path: './config/.env' });
 
 const secretKey = process.env.SECRET_KEY;
 
