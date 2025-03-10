@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const logger = require('./config/logger');
+const santizeReq = require('./middleware/sanitize');
 require('dotenv').config({ path: './config/.env' });
 
 const dbUrl = process.env.DB_URL;
@@ -29,7 +30,8 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
   });
-
+  
+app.use(santizeReq);
 app.use('/api/books', bookRoutes);
 app.use('/api/auth', userRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
