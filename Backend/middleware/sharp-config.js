@@ -10,7 +10,7 @@ const optimizeImg = async (req, res, next) => {
     const newFilePath = `images/${newName}`;
     try {
         await sharp(filePath)
-            .resize(400, 500, { fit: 'contain', background: { r: 255, g: 255, b: 255 } })
+            .resize(400, 500)
             .toFormat('webp')
             .webp({ quality: 80 })
             .toFile(newFilePath);
